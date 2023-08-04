@@ -1,0 +1,20 @@
+{
+    "nrf-connect.applications": [
+        "${workspaceFolder}/light_bulb",
+        "${workspaceFolder}/light_switch",
+        "${workspaceFolder}/button",
+        "${workspaceFolder}/blinky"
+    ],
+    "nrf-connect.boardRoots": [
+        "${workspaceFolder}",
+        "${workspaceFolder}/"
+    ],
+    "nrf-connect.toolchain.path": "PATH",
+    "nrf-connect.topdir": "${nrf-connect.sdk:2.4.1}",
+    "files.associations": {
+        "device.h": "c",
+        "dali.h": "c",
+        "nrfx_gpiote.h": "c",
+        "kernel.h": "c"
+    }
+}
