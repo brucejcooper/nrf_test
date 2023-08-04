@@ -1,0 +1,84 @@
+// To get started, press Ctrl+Space to bring up the completion menu and view the available nodes.
+
+// You can also use the buttons in the sidebar to perform actions on nodes.
+// Actions currently available include:
+
+// * Enabling / disabling the node
+// * Adding the bus to a bus
+// * Removing the node
+// * Connecting ADC channels
+
+// For more help, browse the DeviceTree documentation at https://docs.zephyrproject.org/latest/guides/dts/index.html
+// You can also visit the nRF DeviceTree extension documentation at https://nrfconnect.github.io/vscode-nrf-connect/devicetree/nrfdevicetree.html
+
+/*
+* 1- P0.02 D0 -- Button 1
+* 2- P0.03 D1 -- Button 2
+* 3- P0.28 D2 -- Button 3
+* 4- P0.29 D3 -- Button 4
+* 5- P0.04 D4 -- i2c_1 SDA We're not disabling this cos we might use it for an environmental sensor
+* 6- P0.05 D5 -- i2c_1 SCL
+* 7- P1.11 D6 -- Button 5
+
+* VBUS
+* GND
+* 3V3
+* D10 P1.15 -- 
+* D9 P1.14 -- 
+* D8 P1.13 -- DALI RX
+* D7 P1.12 -- DALI TX
+
+
+*/
+
+
+/ {
+    buttons {
+		compatible = "gpio-keys";
+		
+
+		button1: button_1 {
+			gpios = <&gpio0 02 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>;
+			label = "Push button switch 1";
+		};
+		button2: button_2 {
+			gpios = <&gpio0 03 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>;
+			label = "Push button switch 2";
+		};
+		button3: button_3 {
+			gpios = <&gpio0 28 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>;
+			label = "Push button switch 3";
+		};
+		button4: button_4 {
+			gpios = <&gpio0 29 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>;
+			label = "Push button switch 4";
+		};
+		button5: button_5 {
+			gpios = <&gpio1 11 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>;
+			label = "Push button switch 5";
+		};
+    };
+
+	zephyr,user {
+		dali-tx-gpios = <&gpio1 12 (GPIO_PUSH_PULL)>;
+		dali-rx-gpios = <&gpio1 13 (GPIO_PULL_UP)>;
+	};
+
+    aliases {
+        sw1 = &button1;
+        sw2 = &button2;
+        sw3 = &button3;
+        sw4 = &button4;
+        sw5 = &button5;
+    };
+};
+
+// Disable SPI2 so that we can repurpose the pins.
+&spi2 {
+	status = "disabled";
+};
+
+// Disable uart0 as we don't use it, and we need the pins.
+&uart0 {
+	status = "disabled";
+};
