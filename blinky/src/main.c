@@ -170,7 +170,6 @@ void scanDevices() {
 
 int main(void)
 {
-	k_msleep(1300);
 	buttons_init(button_handler);
 	printk("Hello World\r\n");
 
