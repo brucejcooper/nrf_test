@@ -1,5 +1,5 @@
 identifier: xiao_module
-name: XIAO BLE
+name: XIAO Module
 type: mcu
 arch: arm
 ram: 256
